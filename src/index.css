@@ -1,13 +1,83 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import url('https://fonts.googleapis.com/css2?family=Edu+VIC+WA+NT+Beginner:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply select-none
+  }
+
+  body {
+    @apply primary-bg primary-color overflow-auto
+  }
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+@layer components {
+  .container {
+    @apply my-0 mx-auto max-w-[60rem] w-10/12
+  }
+
+  .danger-btn {
+    @apply capitalize font-medium bg-transparent secondary-color py-1 px-4 bg-pink-900 rounded-full transition-all duration-200 hover:opacity-80
+  }
+}
+
+@layer utilities {
+  .primary-bg {
+    @apply bg-zinc-300;
+  }
+
+  .secondary-bg {
+    @apply bg-sky-900
+  }
+
+  .primary-color {
+    @apply text-slate-900
+  }
+
+  .secondary-color {
+    @apply text-white
+  }
+}
+
+.logo-font {
+  font-family: 'Edu VIC WA NT Beginner', cursive;
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.hide-scrollbar::-webkit-scrollbar { 
+  display: none;  /* Safari and Chrome */
+}
+
+/* Works on Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: gray transparent;
+}
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: gray;
+  border-radius: 20px;
+  border: 3px solid transparent;
+}
+
+.grid-container {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
 }
