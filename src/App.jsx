@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
+
 import Card from "./components/Card";
 import Loading from "./components/Loading";
-
 import cardsList from "./utils/cardsList";
+import randomId from "./utils/randomId";
 
 function App() {
   // states
@@ -12,11 +13,11 @@ function App() {
   const [choiceOne, setChoiceOne] = useState(null);
   const [choiceTwo, setChoiceTwo] = useState(null);
   const [disabledCard, setDisabledCard] = useState(false);
-  // shuffle cards
+  // function to shuffle the cards
   const startGame = () => {
     const shuffledCards = [...cardsList, ...cardsList]
       .sort(() => Math.random() - 0.5)
-      .map((card) => ({ ...card, id: Math.random() }));
+      .map((card) => ({ ...card, id: randomId() }));
 
     setCards(shuffledCards);
     setChoiceOne(null);
@@ -25,16 +26,20 @@ function App() {
     setTurns(0);
   };
 
-  // handle choice of card
+  // function to handle choice of card
   const handleChoice = (card) => {
     if (!disabledCard) {
       return () => {
-        choiceOne ? setChoiceTwo(card) : setChoiceOne(card);
+        if (choiceOne && choiceOne.id !== card.id) {
+          setChoiceTwo(card);
+        } else {
+          setChoiceOne(card);
+        }
       };
     }
   };
 
-  // rest choices
+  // function to rest choices
   const resetChoices = () => {
     setChoiceOne(null);
     setChoiceTwo(null);
@@ -51,10 +56,10 @@ function App() {
   useEffect(() => {
     if (choiceOne && choiceTwo) {
       setDisabledCard(true);
-      if (choiceOne.name === choiceTwo.name) {
+      if (choiceOne.emoji === choiceTwo.emoji) {
         setCards((prevCards) => {
           return prevCards.map((card) => {
-            if (card.name === choiceOne.name) {
+            if (card.emoji === choiceOne.emoji) {
               return { ...card, matched: true };
             } else {
               return card;
@@ -68,17 +73,29 @@ function App() {
     }
   }, [choiceOne, choiceTwo]);
 
+  // check if all cards are matched and show message
+  useEffect(() => {
+    if (!loading && cards.every((card) => card.matched)) {
+      console.log(cards.every((card) => card.matched));
+      setTimeout(() => {
+        window.confirm("You win! Do you want to play again?") && startGame();
+      }, 1000);
+    }
+  }, [cards, loading]);
+
   if (loading) return <Loading />;
 
   return (
     <div className="container">
       <div className="flex flex-col gap-4 justify-center items-center h-screen">
+        {/*  header */}
         <h1 className="logo-font text-center uppercase font-medium text-2xl">
-          memory game
+          emg
         </h1>
         <button className="danger-btn" onClick={startGame}>
-          restart game
+          restart
         </button>
+        {/* cards */}
         <div className="grid grid-cols-4 gap-4">
           {cards.map((card) => (
             <Card
@@ -89,15 +106,9 @@ function App() {
             />
           ))}
         </div>
+        {/* turns */}
         <p className="uppercase">
-          turns <span className="font-medium">{turns}</span>
-        </p>
-        <p className="font-light mt-10">
-          thanks{" "}
-          <a href="https://icons8.com" className="text-sky-600 underline">
-            icons8
-          </a>{" "}
-          for all greatest icons
+          turns <span className="font-medium">({turns})</span>
         </p>
       </div>
     </div>

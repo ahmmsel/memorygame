@@ -3,11 +3,11 @@
 }
 
 .card img {
-  width: 5rem
+  width: 5rem;
 }
 
 .card .front {
-  position : absolute;
+  position: absolute;
   transition: all 0.2s ease-in;
   transform: rotateY(90deg);
 }
@@ -19,11 +19,9 @@
 }
 
 .front {
-  background-color: #fff;
+  font-size: 3rem;
+  background-color: transparent;
   border-radius: 50%;
-  border: #333 solid 1px;
-  padding: .1rem;
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
 }
 
 .card .cover {
