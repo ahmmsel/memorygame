@@ -56,10 +56,10 @@ function App() {
   useEffect(() => {
     if (choiceOne && choiceTwo) {
       setDisabledCard(true);
-      if (choiceOne.emoji === choiceTwo.emoji) {
+      if (choiceOne.name === choiceTwo.name) {
         setCards((prevCards) => {
           return prevCards.map((card) => {
-            if (card.emoji === choiceOne.emoji) {
+            if (card.name === choiceOne.name) {
               return { ...card, matched: true };
             } else {
               return card;
@@ -90,7 +90,7 @@ function App() {
       <div className="flex flex-col gap-4 justify-center items-center h-screen">
         {/*  header */}
         <h1 className="logo-font text-center uppercase font-medium text-2xl">
-          emg
+          memory game
         </h1>
         <button className="danger-btn" onClick={startGame}>
           restart
@@ -107,8 +107,22 @@ function App() {
           ))}
         </div>
         {/* turns */}
-        <p className="uppercase">
-          turns <span className="font-medium">({turns})</span>
+        <div className="flex justify-between items-center gap-10">
+          <p className="uppercase">
+            turns <span className="font-medium">({turns})</span>
+          </p>
+          <p className="uppercase">
+            cards left{" "}
+            <span className="font-medium">
+              ({cards.filter((card) => !card.matched).length})
+            </span>
+          </p>
+        </div>
+        <p>
+          thanks for{" "}
+          <a href="https://icons8.com" className="text-blue-500 underline">
+            icons8
+          </a>
         </p>
       </div>
     </div>

@@ -5,7 +5,7 @@
 .card img {
   width: 5rem;
 }
-
+/* style the front of card*/
 .card .front {
   position: absolute;
   transition: all 0.2s ease-in;
@@ -19,7 +19,6 @@
 }
 
 .front {
-  font-size: 3rem;
   background-color: transparent;
   border-radius: 50%;
 }
